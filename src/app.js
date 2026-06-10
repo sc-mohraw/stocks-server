@@ -9,9 +9,6 @@ const app = express();
 const PORT = 3000;
 
 // Middleware
-app.use(express.json());
-app.use(cookieParser());
-app.use(authHandler);
 app.use(
     cors({
         origin: "http://localhost:4200",
@@ -20,6 +17,9 @@ app.use(
         credentials: true,
     })
 );
+app.use(express.json());
+app.use(cookieParser());
+app.use(authHandler);
 
 // Routes
 app.use('/api/auth', authRoute);
