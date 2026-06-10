@@ -25,4 +25,14 @@ authRoute.post(
     authController.login
 );
 
+// logout api
+authRoute.post("/logout", (req, res) => {
+    res.clearCookie("token", {
+        httpOnly: true,
+        secure: false,
+        sameSite: "lax",
+    });
+    return res.status(200).json({ message: "Logged out successfully" });
+});
+
 module.exports = authRoute;

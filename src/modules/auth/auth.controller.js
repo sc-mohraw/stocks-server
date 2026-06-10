@@ -20,7 +20,7 @@ async function login(req, res, next) {
     try {
         const { token, user } = await authService.login(req.body);
 
-        res.cookie("token", token, { expires: cookieExpireTime }); // to set token in client side (in cookies)
+        res.cookie("token", token, { expires: cookieExpireTime, httpOnly: true, }); // to set token in client side (in cookies)
 
         res.status(200).json({
             success: true,
