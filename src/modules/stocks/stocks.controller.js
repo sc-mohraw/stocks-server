@@ -48,7 +48,25 @@ async function createStock(
     }
 }
 
+async function getMonthlyAverages(
+    req,
+    res,
+    next
+) {
+    try {
+        const result = await stockService.getMonthlyAverages();
+
+        res.status(200).json({
+            success: true,
+            data: result
+        });
+    } catch (error) {
+        next(error);
+    }
+}
+
 module.exports = {
     getStocks,
-    createStock
+    createStock,
+    getMonthlyAverages
 };

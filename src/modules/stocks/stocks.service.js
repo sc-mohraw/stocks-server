@@ -33,7 +33,12 @@ async function createStock(data) {
     );
 }
 
+async function getMonthlyAverages() {
+    return await stockModel.getMonthlyAverages();
+}
+
 module.exports = {
     getStocks,
-    createStock
+    createStock,
+    getMonthlyAverages
 };

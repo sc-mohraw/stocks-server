@@ -18,7 +18,7 @@ async function createTables() {
         await pool.query(`
             CREATE TABLE IF NOT EXISTS stocks (
                 id SERIAL PRIMARY KEY,
-                stored_date TIMESTAMPTZ DEFAULT NOW(),
+                stock_date TIMESTAMPTZ DEFAULT NOW(),
                 open NUMERIC(10,2) DEFAULT 0,
                 close NUMERIC(10,2) DEFAULT 0,
                 created_at TIMESTAMPTZ DEFAULT NOW()

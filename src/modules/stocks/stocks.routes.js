@@ -11,6 +11,11 @@ stocksRoute.get(
     stocksController.getStocks
 );
 
+stocksRoute.get(
+    '/monthly-average',
+    stocksController.getMonthlyAverages
+);
+
 stocksRoute.post(
     '/create',
     stocksController.createStock

@@ -50,8 +50,24 @@ async function createStock(open, close) {
     return result.rows[0];
 }
 
+async function getMonthlyAverages() {
+    const result = await pool.query(
+        `
+        SELECT
+        DATE_TRUNC('month', stock_date) AS month,
+        ROUND(AVG(close), 2) AS avg_close_price
+        FROM stocks
+        GROUP BY DATE_TRUNC('month', stock_date)
+        ORDER BY DATE_TRUNC('month', stock_date);  
+        `
+    );
+
+    return result.rows;
+}
+
 module.exports = {
     getStocks,
     getTotalCount,
-    createStock
+    createStock,
+    getMonthlyAverages
 };
