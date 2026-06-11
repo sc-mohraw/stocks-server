@@ -1,5 +1,7 @@
 const express = require('express');
 const cors = require("cors");
+const http = require('http');
+const { Server } = require('socket.io');
 const authRoute = require('./modules/auth/auth.routes');
 const errorHandler = require('./middlewares/error.middleware');
 const authHandler = require('./middlewares/auth.middleware');
@@ -7,6 +9,8 @@ const cookieParser = require('cookie-parser');
 const stocksRoute = require('./modules/stocks/stocks.routes');
 const app = express();
 const PORT = 3000;
+const server = http.createServer(app);
+
 
 // Middleware
 app.use(
@@ -29,7 +33,25 @@ app.use('/api/stocks', stocksRoute);
 app.use(errorHandler);
 
 
+// socket
 
-app.listen(PORT, () => {
+const io = new Server(server, {
+    cors: {
+        origin: 'http://localhost:4200',
+        methods: ['GET', 'POST']
+    }
+});
+
+io.on('connection', (socket) => {
+    console.log('User connected:', socket.id);
+
+    socket.on('disconnect', () => {
+        console.log('User disconnected');
+    });
+});
+
+app.set('io', io);
+
+server.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
 });

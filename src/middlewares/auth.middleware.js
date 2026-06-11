@@ -2,10 +2,10 @@ const jwt = require('jsonwebtoken');
 
 function authenticate(req, res, next) {
 
-    if (req.path === "/api/auth/register" || req.path === "/api/auth/login") {
-        return next(); // Skip auth for these routes
+    // Skip auth for auth routes and socket.io
+    if (req.path === "/api/auth/register" || req.path === "/api/auth/login" || req.path.startsWith('/socket.io')) {
+        return next();
     }
-
 
     try {
         const { token } = req.cookies;

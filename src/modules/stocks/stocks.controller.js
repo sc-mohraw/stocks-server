@@ -39,6 +39,10 @@ async function createStock(
                 req.body
             );
 
+        const io = req.app.get('io');
+
+        io.emit('stock-added');
+
         res.status(201).json({
             success: true,
             data: result
