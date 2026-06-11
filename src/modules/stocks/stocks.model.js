@@ -58,7 +58,7 @@ async function getMonthlyAverages() {
         ROUND(AVG(close), 2) AS avg_close_price
         FROM stocks
         GROUP BY DATE_TRUNC('month', stock_date)
-        ORDER BY DATE_TRUNC('month', stock_date);  
+        ORDER BY DATE_TRUNC('month', stock_date) DESC;  
         `
     );
 
